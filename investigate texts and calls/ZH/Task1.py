@@ -3,14 +3,27 @@
 你将在以后的课程中了解更多有关读取文件的知识。
 """
 import csv
+
+numbers = set()
+
 with open('texts.csv', 'r') as f:
     reader = csv.reader(f)
     texts = list(reader)
+    for text in texts:
+        numbers.add(text[0])
+        numbers.add(text[1])
+
 
 with open('calls.csv', 'r') as f:
     reader = csv.reader(f)
     calls = list(reader)
+    for call in calls:
+        numbers.add(call[0])
+        numbers.add(call[1])
 
+count = len(numbers)
+result = f"There are <{count}> different telephone numbers in the records."
+print(result)
 
 """
 任务1：
