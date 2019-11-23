@@ -13,18 +13,19 @@ with open('texts.csv', 'r') as f:
 with open('calls.csv', 'r') as f:
     reader = csv.reader(f)
     calls = list(reader)
-    for call in calls:
-        outbound = call[0]
-        inbound = call[1]
-        duration = int(call[3])
-        if outbound in number_duration.keys():
-            number_duration[outbound] += duration
-        else:
-            number_duration[outbound] = duration
-        if inbound in number_duration.keys():
-            number_duration[inbound] += duration
-        else:
-            number_duration[inbound] = duration
+    
+for call in calls:
+    outbound = call[0]
+    inbound = call[1]
+    duration = int(call[3])
+    if outbound in number_duration.keys():
+        number_duration[outbound] += duration
+    else:
+        number_duration[outbound] = duration
+    if inbound in number_duration.keys():
+        number_duration[inbound] += duration
+    else:
+        number_duration[inbound] = duration
         
 max_prices = max(zip(number_duration.values(), number_duration.keys()))
 number = max_prices[1]

@@ -6,21 +6,23 @@ import csv
 with open('texts.csv', 'r') as f:
     reader = csv.reader(f)
     texts = list(reader)
-    incoming = texts[0][0]
-    answering = texts[0][1]
-    time = texts[0][2]
-    result = f"First record of texts, <{incoming}> texts <{answering}> at time <{time}>"
-    print(result)
 
 with open('calls.csv', 'r') as f:
     reader = csv.reader(f)
     calls = list(reader)
-    incoming = calls[-1][0]
-    answering = calls[-1][1]
-    time = calls[-1][2]
-    duration = calls[-1][3]
-    result = f"Last record of calls, <{incoming}> calls <{answering}> at time <{time}>, lasting <{duration}> seconds"
-    print(result)
+
+incoming = texts[0][0]
+answering = texts[0][1]
+time = texts[0][2]
+result = f"First record of texts, <{incoming}> texts <{answering}> at time <{time}>"
+print(result)
+
+incoming = calls[-1][0]
+answering = calls[-1][1]
+time = calls[-1][2]
+duration = calls[-1][3]
+result = f"Last record of calls, <{incoming}> calls <{answering}> at time <{time}>, lasting <{duration}> seconds"
+print(result)
 
 """
 任务0:
