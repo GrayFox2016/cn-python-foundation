@@ -3,6 +3,11 @@
 你将在以后的课程中了解更多有关读取文件的知识。
 """
 import csv
+import re
+
+codes = set()
+total_calls = 0
+bangalore_answers = 0
 
 with open('texts.csv', 'r') as f:
     reader = csv.reader(f)
@@ -11,6 +16,39 @@ with open('texts.csv', 'r') as f:
 with open('calls.csv', 'r') as f:
     reader = csv.reader(f)
     calls = list(reader)
+    total_calls = len(calls)
+    # find the numbers begin with (080)
+    for call in calls:
+        incoming = call[0]
+        answering = call[1]
+        if incoming.startswith('(080)'):
+            # find codes for fixed lines
+            match_obj_fixed = re.match(r'^\([0-9]+\)', answering)
+            if match_obj_fixed:
+                codes.add(match_obj_fixed.group(0))
+                if answering.startswith('(080)'):
+                    bangalore_answers += 1
+                continue
+
+            # find codes for mobile numbers
+            if answering.find(' ') >= 0:
+                match_obj_mobile = re.match(r'^[7-9][0-9]{3}', answering)
+                if match_obj_mobile:
+                    codes.add(match_obj_mobile.group(0))
+                    continue
+            else:
+                # find codes for Telemarketers
+                if answering.startswith('140'):
+                    codes.add('140')
+
+print("The numbers called by people in Bangalore have codes:")
+
+result = sorted(codes)
+for line in result:
+    print(line)
+
+percentage = bangalore_answers / total_calls
+print('<%.2f> percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore.' % (percentage))
 
 """
 任务3:
